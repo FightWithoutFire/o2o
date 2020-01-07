@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.imooc.o2o.cache.JedisUtil;
 import com.imooc.o2o.dao.ProductCategoryDao;
 import com.imooc.o2o.dao.ProductDao;
 import com.imooc.o2o.dao.ProductImgDao;
@@ -35,6 +38,12 @@ public class ProductServiceImpl  implements ProductService{
 	private ProductDao productDao;
 	@Autowired
 	private ProductImgDao productImgDao;
+	@Autowired
+	private JedisUtil.Keys jedisKeys;
+	@Autowired
+	private JedisUtil.Strings jedisStrings;
+	private static String SCLISTKEY="productcategorylist";
+	private static Logger logger=LoggerFactory.getLogger(ProductCategoryServiceImpl.class);
 	@Override
 	@Transactional
 	public ProductExecution addProduct(Product product, ImageHolder thumbnail, List<ImageHolder> productImgs)

@@ -39,21 +39,26 @@ public class AreaServiceImpl implements AreaService {
 	
 	@Override
 	@Transactional
-	public List<Area> getAreaList() throws AreaOperationException {
+	public List<Area> getAreaList()  {
 		// TODO Auto-generated method stub
 		String key=AREALISTKEY;
 		List<Area> areaList=null;
 		ObjectMapper mapper = new ObjectMapper();
 		if(!jedisKeys.exists(key)) {
 			areaList = areaDao.queryArea();
-			String jsonString;
+			String jsonString=null;
 			try {
 				jsonString= mapper.writeValueAsString(areaList);
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				logger.error(e.getMessage());
-				throw new AreaOperationException(e.getMessage());
+				try {
+					throw new AreaOperationException(e.getMessage());
+				} catch (AreaOperationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			jedisStrings.set(key,jsonString);
 			System.out.println("mysql");
@@ -66,10 +71,20 @@ public class AreaServiceImpl implements AreaService {
 				
 			}catch(JsonMappingException e) {
 				logger.error(e.getMessage());
-				throw new AreaOperationException(e.getMessage());
+				try {
+					throw new AreaOperationException(e.getMessage());
+				} catch (AreaOperationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}catch (IOException e) {
 				logger.error(e.getMessage());
-				throw new AreaOperationException(e.getMessage());
+				try {
+					throw new AreaOperationException(e.getMessage());
+				} catch (AreaOperationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		return areaList;
