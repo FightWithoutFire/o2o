@@ -33,8 +33,6 @@ public class AreaServiceImpl implements AreaService {
 	@Autowired
 	private JedisUtil.Strings jedisStrings;
 	
-	@Autowired
-	private Jedis jedis;
 
 	private static String AREALISTKEY="arealist";
 	private static Logger logger = LoggerFactory.getLogger(AreaServiceImpl.class);
@@ -58,7 +56,9 @@ public class AreaServiceImpl implements AreaService {
 				throw new AreaOperationException(e.getMessage());
 			}
 			jedisStrings.set(key,jsonString);
+			System.out.println("mysql");
 		}else {
+			System.out.println("jedis");
 			String jsonString=jedisStrings.get(key);
 			JavaType javaType = mapper.getTypeFactory().constructParametricType(ArrayList.class, Area.class);
 			try {

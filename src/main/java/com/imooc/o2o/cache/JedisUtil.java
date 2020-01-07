@@ -11,22 +11,24 @@ import redis.clients.jedis.SortingParams;
 import redis.clients.util.SafeEncoder;
 
 public class JedisUtil {
-	/**
-	 * 缓存生存时间
-	 */
+	
 	private final int expire = 60000;
-	/** 操作Key的方法 */
+	
 	public Keys KEYS;
-	/** 对存储结构为String类型的操作 */
+	
 	public Strings STRINGS;
-	/** 对存储结构为List类型的操作 */
+	
 	public Lists LISTS;
-	/** 对存储结构为Set类型的操作 */
+	
 	public Sets SETS;
-	/** 对存储结构为HashMap类型的操作 */
+	
 	public Hash HASH;
 
 	private JedisPool jedisPool;
+	
+	public JedisUtil(){
+		
+	}
 
 	public JedisPool getJedisPool() {
 		return jedisPool;
@@ -40,22 +42,12 @@ public class JedisUtil {
 		return jedisPool;
 	}
 
-	/**
-	 * 从jedis连接池中获取获取jedis对象
-	 * 
-	 * @return
-	 */
+	
 	public Jedis getJedis() {
 		return jedisPool.getResource();
 	}
 
-	/**
-	 * 设置过期时间
-	 * 
-	 * @author ruan 2013-4-11
-	 * @param key
-	 * @param seconds
-	 */
+	
 	public void expire(String key, int seconds) {
 		if (seconds <= 0) {
 			return;
@@ -65,12 +57,7 @@ public class JedisUtil {
 		jedis.close();
 	}
 
-	/**
-	 * 设置默认过期时间
-	 * 
-	 * @author ruan 2013-4-11
-	 * @param key
-	 */
+	
 	public void expire(String key) {
 		expire(key, expire);
 	}
@@ -78,9 +65,7 @@ public class JedisUtil {
 	// *******************************************Keys*******************************************//
 	public class Keys {
 
-		/**
-		 * 清空所有key
-		 */
+		
 		public String flushAll() {
 			Jedis jedis = getJedis();
 			String stata = jedis.flushAll();

@@ -17,6 +17,12 @@
 		<constructor-arg index="1" value="${redis.hostname}" />
 		<constructor-arg index="2" value="${redis.port}" type="int" />
 	</bean>
+	<bean id="jedisUtil" class="com.imooc.o2o.cache.JedisUtil"
+		scope="singleton">
+		<property name="jedisPool">
+			<ref bean="jedisWritePool" />
+		</property>
+	</bean>
 	<bean id="jedisKeys" class="com.imooc.o2o.cache.JedisUtil$Keys"
 		scope="singleton">
 		<constructor-arg ref="jedisUtil"></constructor-arg>
@@ -37,10 +43,5 @@
 		scope="singleton">
 		<constructor-arg ref="jedisUtil"></constructor-arg>
 	</bean>
-	<bean id="jedisUtil" class="com.imooc.o2o.cache.JedisUtil"
-		scope="singleton">
-		<property name="jedisPool">
-			<ref bean="jedisWritePool" />
-		</property>
-	</bean>
+	
 </beans>    

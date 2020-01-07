@@ -1,7 +1,6 @@
 package com.imooc.o2o.util;
-
+import com.imooc.o2o.util.DESUtils;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-
 public class EncryptPropertyPlaceholderConfigurer extends
 		PropertyPlaceholderConfigurer {
 	private String[] encryptPropNames = { "jdbc.username", "jdbc.password" };
