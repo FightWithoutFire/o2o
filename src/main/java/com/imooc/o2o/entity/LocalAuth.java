@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class LocalAuth {
 	private Long localAuthId;
-	private String userName;
+	private String username;
 	private String password;
 	private Long userId;
 	private Date createTime;
@@ -20,11 +20,11 @@ public class LocalAuth {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String userName) {
-		this.userName = userName;
+		this.username = userName;
 	}
 
 	public String getPassword() {
